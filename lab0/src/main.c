@@ -2,14 +2,15 @@
 #include <string.h>                       //    *|      LAB_0      |*
 #include <math.h>                         //    *| by Mateyuk_Ilya |*
 #include <stdlib.h>                       //    *|     _18212_     |*
+#include <ctype.h>
 
-#define ULL unsigned long long
-static char SSS[16] = "0123456789ABCDEF";
+typedef unsigned long long ULL;
+static const char SSS[] = "0123456789ABCDEF";
 
 void test(int point, int lenght, int a, int b, char *str) {
-    int exit0, exit1, exit2, exit3, exit4 = 0;
+    int exit0, exit1, exit2, exit3, exit4;
     for (int i = 0; i < lenght; ++i) {
-        if ((int) str[i] >= 97) str[i] -= 32;                           // Поднимаем буквы в в. регистр
+        str[i] = (char) (toupper(str[i]));
         exit0 = ((a < 2) || (b < 2) || (a > 16) || (b > 16));
         exit1 = (str[0] == '.') || (str[lenght - 1] == '.');
         exit2 = (strchr(SSS, str[i]) == NULL) && (i != point);          // Недопустимый символ
@@ -22,7 +23,7 @@ void test(int point, int lenght, int a, int b, char *str) {
     }
 }
 
-double aTo10(int point, int lenght, int a, char *str) {             // Перевод из a-той в 10 систему счисления
+double aTo10(int point, int lenght, int a, const char *str) {
     double res = 0;
     int z;
     if (point == 0)
@@ -39,25 +40,27 @@ double aTo10(int point, int lenght, int a, char *str) {             // Пере�
 }
 
 void dec2b_int(ULL dec, int b, char *str_b_int) {                   // Целая часть из 10 в b-ричную
-    char symb[48] = {0};
+    char symb[2]={0};
     if (dec == 0) str_b_int[0] = '0';
     while (dec > 0) {
-        symb[0] = *(SSS + (dec % b));
+        symb[0] = SSS[dec % b];
         dec = dec / b;
-        strcat(symb, str_b_int);                                    // Берем символ и приписываем к нему строку
-        strcpy(str_b_int, symb);                                    // справа, свапаем строки, нулим строку
-        memset(symb, 0, sizeof(symb));                              // с символом
+        strcat(str_b_int, symb);
+    }
+    int k = strlen(str_b_int);
+    for (int i = 0; i < k / 2; ++i) {
+        symb[0] = str_b_int[i];
+        str_b_int[i] = str_b_int[k - i - 1];
+        str_b_int[k - i - 1] = symb[0];
     }
 }
 
 void dec2b_frac(double dec, int b, char *s) {                       // Перевод дробной части в b-ричную
-
     char symb;
-    s = s + 1;
     double p = 0;
     for (int i = 0; i < 12; ++i) {                                  // Находим 12 символов после точки
         p = dec * b;
-        symb = *((ULL) p + SSS);
+        symb = SSS[(ULL) p];
         dec = p - (ULL) p;
         *s = symb;
         ++s;
@@ -65,15 +68,13 @@ void dec2b_frac(double dec, int b, char *s) {                       // Пере�
 }
 
 void cls_0(char *str_b_frac) {
-    for (int i = 12; i >= 2; --i) {
-        if (str_b_frac[i] == '0') str_b_frac[i] = '\0';             // Убирает лишние нули
-        else break;
+    for (int i = 12; (i >= 2) && (str_b_frac[i] == '0'); --i) {
+        str_b_frac[i] = '\0';                                       // Убирает лишние нули
     }
 }
 
-
 int main() {
-    int a, b;                                                       // Из а-тичной в b-ричную
+    int a, b;
     double result_10;
     char str_in[14] = {0}, str_b_int[50] = {0}, str_b_frac[14] = {'.', 0};
     scanf("%d%d", &a, &b);
@@ -88,10 +89,11 @@ int main() {
 
     if (point != 0) {
         result_10 = result_10 - (ULL) result_10;
-        dec2b_frac(result_10, b, str_b_frac);                       // Дробная часть в b-ричной
+        dec2b_frac(result_10, b, str_b_frac + 1);                       // Дробная часть в b-ричной
         cls_0(str_b_frac);                                          // Убираем лишние нолики
         strcat(str_b_int, str_b_frac);
     }
     printf("%s\n\nPress ENTER for exit...", str_b_int);
-    getchar(); getchar();
+    getchar();
+    getchar();
 }
