@@ -25,13 +25,10 @@ int main()
 			return 0;
 		}
 	}
-<<<<<<< HEAD
 	if(C[0]==-1 || C[len-1]==-1) {
 		printf("bad input");
 		return 0;
 	}
-=======
->>>>>>> 3fda4d4dd2d063953134e618ba955c8d43ab3451
 	int k=0, j=0, n=0;
 	for(i=0; i<len; ++i) if(C[i]==-1) ++n;
 	if(n>1) {
@@ -52,12 +49,8 @@ int main()
 	double num2=0;
 	for(i=j-1; i>=0; --i) num2=(double)num2/b1+B[i];
 	num2=num2/b1;	
-<<<<<<< HEAD
 	i=0;
 	long long dc=num1;	
-=======
-	i=0;	
->>>>>>> 3fda4d4dd2d063953134e618ba955c8d43ab3451
 	while(num1>0) {
 		NUM[i]=num1%b2;
 		num1/=b2;
@@ -76,12 +69,8 @@ int main()
 		num2=num2*b2-NUM[i];
 	}
 	for(j=0; j<i; ++j) 	NUM_2[j]=x[NUM[j]];
-<<<<<<< HEAD
 	if(dc>0) printf("%s", NUM_1);
 	else printf("%d", 0);
-=======
-	printf("%s", NUM_1);
->>>>>>> 3fda4d4dd2d063953134e618ba955c8d43ab3451
 	int db=0;
 	for(i=0; i<12; i++) if(B[i]>0) ++db;
 	if(db>0) printf(".%s", NUM_2);
