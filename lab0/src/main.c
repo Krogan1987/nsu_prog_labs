@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-int main()
+int main(void)
 {
-	int i, b1, b2, C[12+1]={}, A[12]={}, B[12]={}, NUM[48]={};
-	char s[12+1+1]={}, NUM_1[49]={}, NUM_2[13]={}, x[]="0123456789ABCDEF";
-	scanf("%d%d%s", &b1, &b2, s);
-	int len=strlen(s);
+	int i, b1, b2, C[12+1]={0}, A[12]={0}, B[12]={0}, NUM[48]={0};
+	char s[12+1+1]={0}, NUM_1[48+1]={0}, NUM_2[12+1]={0}, x[16+1]="0123456789ABCDEF";
+	scanf("%d%d%13s", &b1, &b2, s);
+	int len=(int)strlen(s);
 	if (b1<2 || b1>16 || b2<2 || b2>16) {
 		printf("bad input");
 		return 0;
@@ -40,7 +40,6 @@ int main()
 		++k;
 	}
 	for(i=k+1; i<len && C[i]!=-1; ++i) {
-		if(i<len-1) ++n;
 		B[j]=C[i];
 		++j;	
 	}	
@@ -56,11 +55,7 @@ int main()
 		num1/=b2;
 		++i;
 	}
-	for(j=0; j<i/2; ++j) {
-		NUM[j]=NUM[j]^NUM[i-1-j];
-		NUM[i-1-j]=NUM[i-1-j]^NUM[j];
-		NUM[j]=NUM[j]^NUM[i-1-j];
-	}
+	for(j=0; j<i/2; ++j) NUM[j] ^= NUM[i-1-j] ^= NUM[j] ^= NUM[i-1-j];
 	for(j=0; j<i; ++j) 	NUM_1[j]=x[NUM[j]];
 	double p;
 	for(i=0; i<12 && num2!=0; ++i) {
