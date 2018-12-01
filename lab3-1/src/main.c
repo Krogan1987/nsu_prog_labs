@@ -1,12 +1,16 @@
 #include <stdlib.h>
 #include <stdio.h>
+
 typedef int key;
-void qSort (key a[], int l, int r) {
-	key x, w;
-	int i, j;
+
+static void quick_sort (key a[], int l, int r) {
+	int i=0;
 	i=l;
+	int j=0;
 	j=r;
+	key x=0;
 	x=a[(l+r)/2];
+	key w=0;
 	do {
 		while (a[i]<x) i++;
 		while (x<a[j]) j--;
@@ -18,19 +22,22 @@ void qSort (key a[], int l, int r) {
 			j--;
 		}
 	} while (i<j);
-	if (l<j) qSort (a, l, j);
-	if (i<r) qSort (a, i, r);
+	if (l<j) quick_sort (a, l, j);
+	if (i<r) quick_sort (a, i, r);
 }
+
 int main(void) {
-	int i, N;
+	int N=0;
 	scanf("%d", &N);
 	int *arr=NULL;
-	arr=(int*) malloc (N*sizeof(int));
+	arr=malloc (N*sizeof *arr);
+	if (arr==NULL) exit (1); 
+	int i=0;
 	for(i=0; i<N; ++i) 
 		scanf("%d", &arr[i]);
-	qSort (arr, 0, N-1);
+	quick_sort (arr, 0, N-1);
 	for(i=0; i<N; ++i) 
 		printf("%d ", arr[i]);
 	free(arr);
-	return EXIT_SUCCESS;
+	return 0;
 }
