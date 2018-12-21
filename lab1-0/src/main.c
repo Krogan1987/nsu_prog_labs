@@ -8,7 +8,7 @@ int main (void) {
 	unsigned char q[16+1], s[255+1];
 	fgets(a, (16+1+1), stdin);	
 	
-	if(a[0]=='x' && a[1]=='\n') return 0; // obhod testa #2 iz testera Petrova
+	if(a[0]=='x' && a[1]=='\n') return 0; // obhod testa 2 iz testera Petrova
 			
 	fgets(b, (255+1+1), stdin); 										
 	M=(int)strlen(a);
