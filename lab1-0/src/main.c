@@ -34,7 +34,7 @@ int main (void) {
 		if (j==0) i=i+d[(unsigned)s[j]];
 		else {
 			int x=3;
-			while(x<=M and s[k+sum]!=q[M-x]) {
+			while((x<=M) && (s[k+sum]!=q[M-x])) {
 				x++;
 				i++;
 			}
