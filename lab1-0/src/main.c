@@ -3,7 +3,6 @@
 									
 int main (void) {	
 	char a[18], b[256];			
-	unsigned char q[18], s[256];
 	fgets(a, 18, stdin);			
 	fgets(b, 256, stdin);
 	int N=0, M=0;										
