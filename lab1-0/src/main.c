@@ -15,8 +15,8 @@ int main (void) {
 	do {
 		int i=0;  			
 		i=M-2;
-		int j=0, k=0;
 		do {
+			int j=0, k=0;
 			j=M-2;
 			k=i;
 			printf("%d ", k+1+count);
