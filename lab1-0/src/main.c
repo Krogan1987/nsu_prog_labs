@@ -37,7 +37,6 @@ int main (void) {
 				i=i+1;
 			}
 		} while (i<N);
-		size_t nread;
 		nread=fread(buf, 1, 256, stdin);
 		buf[nread]=0;
 		N=(int)strlen(buf);
